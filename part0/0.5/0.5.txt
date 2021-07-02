@@ -1,11 +1,11 @@
-title 0.4
+title 0.5
 
-browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/new_note
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
 server-->browser: HTML-code
 browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
 server-->browser: main.css
-browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
-server-->browser: main.js
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+server-->browser: spa.js
 
 note over browser:
 browser starts executing js-code
@@ -13,7 +13,7 @@ that requests JSON data from server
 end note
 
 browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
-server-->browser: [{ content: "Hi everyone", date: "2021-07-01T18:23:36.011Z" }, ...]
+server-->browser: data.json
 browser->server: HTTP GET https://studies.cs.helsinki.fi/favicon.ico
 server-->browser: icon
 
