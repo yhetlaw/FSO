@@ -6,27 +6,37 @@ const Title = (props) => <h1>{props.text}</h1>;
 
 const Subtitle = (props) => <h2>{props.text}</h2>;
 
-const Statistics = (props) => {
-  return (
-    <div>
-      <p>
-        {props.text} {props.value}
-      </p>
-    </div>
-  );
-};
-
-const StatisticsResult = (props) => {
-  if (props.value === 0) {
-    return <div>No feedback given</div>;
-  }
-};
-
-const Average = (props) => (
+const Statistics = (props) => (
   <p>
     {props.text} {props.value}
   </p>
 );
+
+const StatisticsGroup = (props) => {
+  if (props.value === 0) {
+    return <div>No feedback given</div>;
+  }
+  return (
+    <div>
+      <Statistics text='Good' value={props.good} />
+      <Statistics text='Neutral' value={props.neutral} />
+      <Statistics text='Bad' value={props.bad} />
+      <Statistics text='All' value={props.all} />
+      <Statistics text='Average' value={props.average} />
+      <Statistics text='Positive' value={props.positive} />
+    </div>
+  );
+};
+
+const ButtonGroup = (props) => {
+  return (
+    <div>
+      <Button onClick={props.setToGood(props.good + 1)} text='Good' />
+      <Button onClick={props.setToNeutral(props.neutral + 1)} text='Neutral' />
+      <Button onClick={props.setToBad(props.bad + 1)} text='Bad' />
+    </div>
+  );
+};
 
 const App = () => {
   // save clicks of each button to its own state
@@ -52,12 +62,17 @@ const App = () => {
       <Button onClick={setToGood(good + 1)} text='Good' />
       <Button onClick={setToNeutral(neutral + 1)} text='Neutral' />
       <Button onClick={setToBad(bad + 1)} text='Bad' />
+
       <Subtitle text='Statistics' />
-      <Statistics text='Good' value={good} />
-      <Statistics text='Neutral' value={neutral} />
-      <Statistics text='Bad' value={bad} />
-      <Statistics text='All' value={good + neutral + bad} />
-      <Average text='Average' value={(good - bad) / (good + neutral + bad)} />
+      <StatisticsGroup
+        value={good + neutral + bad}
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        all={good + neutral + bad}
+        average={(good - bad) / (good + neutral + bad)}
+        positive={(good * 100) / (good + neutral + bad)}
+      />
     </div>
   );
 };
