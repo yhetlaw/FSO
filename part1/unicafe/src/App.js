@@ -31,9 +31,9 @@ const StatisticsGroup = (props) => {
 const ButtonGroup = (props) => {
   return (
     <div>
-      <Button onClick={props.setToGood(props.good + 1)} text='Good' />
-      <Button onClick={props.setToNeutral(props.neutral + 1)} text='Neutral' />
-      <Button onClick={props.setToBad(props.bad + 1)} text='Bad' />
+      <Button onClick={props.setToGood(props.good)} text='Good' />
+      <Button onClick={props.setToNeutral(props.neutral)} text='Neutral' />
+      <Button onClick={props.setToBad(props.bad)} text='Bad' />
     </div>
   );
 };
@@ -59,10 +59,14 @@ const App = () => {
   return (
     <div>
       <Title text='Give feedback' />
-      <Button onClick={setToGood(good + 1)} text='Good' />
-      <Button onClick={setToNeutral(neutral + 1)} text='Neutral' />
-      <Button onClick={setToBad(bad + 1)} text='Bad' />
-
+      <ButtonGroup
+        setToGood={setToGood}
+        setToNeutral={setToNeutral}
+        setToBad={setToBad}
+        good={good + 1}
+        neutral={neutral + 1}
+        bad={bad + 1}
+      />
       <Subtitle text='Statistics' />
       <StatisticsGroup
         value={good + neutral + bad}
