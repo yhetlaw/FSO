@@ -7,9 +7,10 @@ const Title = (props) => <h1>{props.text}</h1>;
 const Subtitle = (props) => <h2>{props.text}</h2>;
 
 const Statistics = (props) => (
-  <p>
-    {props.text} {props.value}
-  </p>
+  <tr>
+    <td>{props.text}</td>
+    <td>{props.value}</td>
+  </tr>
 );
 
 const StatisticsGroup = (props) => {
@@ -18,12 +19,16 @@ const StatisticsGroup = (props) => {
   }
   return (
     <div>
-      <Statistics text='Good' value={props.good} />
-      <Statistics text='Neutral' value={props.neutral} />
-      <Statistics text='Bad' value={props.bad} />
-      <Statistics text='All' value={props.all} />
-      <Statistics text='Average' value={props.average} />
-      <Statistics text='Positive' value={props.positive} />
+      <table>
+        <tbody>
+          <Statistics text='Good' value={props.good} />
+          <Statistics text='Neutral' value={props.neutral} />
+          <Statistics text='Bad' value={props.bad} />
+          <Statistics text='All' value={props.all} />
+          <Statistics text='Average' value={props.average} />
+          <Statistics text='Positive' value={props.positive} />
+        </tbody>
+      </table>
     </div>
   );
 };
