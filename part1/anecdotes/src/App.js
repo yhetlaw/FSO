@@ -5,7 +5,29 @@ const Title = (props) => <h1>{props.text}</h1>;
 const Button = (props) => <button onClick={props.onClick}>{props.text}</button>;
 
 const MostVotes = (props) => {
-  return <p>{props.text}</p>;
+  let mostVotes = 0;
+  let i = 0;
+  while (i < props.voteList.length) {
+    if (props.voteList[i] > props.voteList[mostVotes]) {
+      mostVotes = i;
+    }
+    i++;
+  }
+  return (
+    <div>
+      <p>{props.anecdotesList[mostVotes]}</p>
+      <p>Has {props.numberVotes[mostVotes]} votes</p>
+    </div>
+  );
+};
+
+const AnecdoteGroup = (props) => {
+  return (
+    <div>
+      <p>{props.text}</p>
+      <p>Has {props.numberVotes} votes</p>
+    </div>
+  );
 };
 
 const App = () => {
@@ -27,25 +49,15 @@ const App = () => {
     copyVotes[selected] += 1;
     setVotes(copyVotes);
   };
-  //test ignore
-  let mostVotes = 0;
-  let i = 0;
-  while (i < votes.length) {
-    if (votes[i] > votes[mostVotes]) {
-      mostVotes = i;
-    }
-    i++;
-  }
 
   return (
     <div>
       <Title text='Anecdote of the day' />
-      <p>{anecdotes[selected]}</p>
-      <p>Has {votes[selected]} votes</p>
+      <AnecdoteGroup text={anecdotes[selected]} numberVotes={votes[selected]} />
       <Button onClick={handleVote} text='Vote' />
       <Button onClick={handleClick} text='Random anecdote' />
       <Title text='Anecdote with the most votes' />
-      <MostVotes text={anecdotes[mostVotes]} />
+      <MostVotes voteList={votes} anecdotesList={anecdotes} numberVotes={votes} />
     </div>
   );
 };
