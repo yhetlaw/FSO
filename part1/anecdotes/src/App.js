@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 
+const Title = (props) => <h1>{props.text}</h1>;
+
 const Button = (props) => <button onClick={props.onClick}>{props.text}</button>;
+
+const MostVotes = (props) => {
+  return <p>{props.text}</p>;
+};
 
 const App = () => {
   const anecdotes = [
@@ -14,19 +20,32 @@ const App = () => {
   ];
   const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState(new Array(7).fill(0));
+
   const handleClick = () => setSelected(Math.floor(Math.random() * anecdotes.length));
   const handleVote = () => {
     const copyVotes = [...votes];
     copyVotes[selected] += 1;
     setVotes(copyVotes);
   };
+
+  let mostVotes = 0;
+  let i = 0;
+  while (i < votes.length) {
+    if (votes[i] > votes[mostVotes]) {
+      mostVotes = i;
+    }
+    i++;
+  }
+
   return (
     <div>
+      <Title text='Anecdote of the day' />
       <p>{anecdotes[selected]}</p>
       <p>Has {votes[selected]} votes</p>
       <Button onClick={handleVote} text='Vote' />
-      <br />
       <Button onClick={handleClick} text='Random anecdote' />
+      <Title text='Anecdote with the most votes' />
+      <MostVotes text={anecdotes[mostVotes]} />
     </div>
   );
 };
