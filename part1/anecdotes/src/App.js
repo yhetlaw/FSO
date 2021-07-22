@@ -27,7 +27,7 @@ const App = () => {
     copyVotes[selected] += 1;
     setVotes(copyVotes);
   };
-
+  //test ignore
   let mostVotes = 0;
   let i = 0;
   while (i < votes.length) {
