@@ -5,7 +5,12 @@ const Header = ({ course }) => {
 };
 
 const Total = ({ course }) => {
-  const sum = course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises;
+  //Map only the exercises of parts of the object course
+  const onlyParts = course.parts.map(function (part) {
+    return part.exercises;
+  });
+  //Sum all the exercises with reduce
+  const sum = onlyParts.reduce((sum, current) => sum + current, 0);
   return <p>Number of exercises {sum}</p>;
 };
 
@@ -23,6 +28,7 @@ const Content = ({ course }) => {
       <Part part={course.parts[0]} />
       <Part part={course.parts[1]} />
       <Part part={course.parts[2]} />
+      <Part part={course.parts[3]} />
     </div>
   );
 };
@@ -32,6 +38,7 @@ const Course = ({ course }) => {
     <div>
       <Header course={course} />
       <Content course={course} />
+      <Total course={course} />
     </div>
   );
 };
@@ -51,6 +58,10 @@ const App = () => {
       {
         name: 'State of a component',
         exercises: 14,
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
       },
     ],
   };
