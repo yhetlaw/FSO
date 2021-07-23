@@ -5,7 +5,7 @@ const Header = ({ course }) => {
 };
 
 const Total = ({ course }) => {
-  //Map all exercises and add them with reduce
+  //Map all exercises and add them with reduceç-
   const sum = course.parts
     .map(function (part) {
       return part.exercises;
