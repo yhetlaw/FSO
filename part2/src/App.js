@@ -1,37 +1,37 @@
 import React from 'react';
 
-const Header = (props) => {
-  return (
-    <div>
-      <h1>{props.course.name}</h1>
-    </div>
-  );
+const Header = ({ course }) => {
+  return <h1>{course.name}</h1>;
+};
+
+const Total = ({ course }) => {
+  const sum = course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises;
+  return <p>Number of exercises {sum}</p>;
 };
 
 const Part = (props) => {
   return (
+    <p>
+      {props.part.name} {props.part.exercises}
+    </p>
+  );
+};
+
+const Content = ({ course }) => {
+  return (
     <div>
-      <p>
-        {props.name} {props.exercise}
-      </p>
+      <Part part={course.parts[0]} />
+      <Part part={course.parts[1]} />
+      <Part part={course.parts[2]} />
     </div>
   );
 };
 
-const Content = (props) => {
+const Course = ({ course }) => {
   return (
     <div>
-      <Part name={props.parts[0].name} exercise={props.parts[0].exercises} />
-      <Part name={props.parts[1].name} exercise={props.parts[1].exercises} />
-      <Part name={props.parts[2].name} exercise={props.parts[2].exercises} />
-    </div>
-  );
-};
-
-const Total = (props) => {
-  return (
-    <div>
-      <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
+      <Header course={course} />
+      <Content course={course} />
     </div>
   );
 };
@@ -55,13 +55,6 @@ const App = () => {
     ],
   };
 
-  return (
-    <div>
-      <Header course={course} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
-    </div>
-  );
+  return <Course course={course} />;
 };
-
 export default App;
