@@ -5,12 +5,12 @@ const Header = ({ course }) => {
 };
 
 const Total = ({ course }) => {
-  //Map only the exercises of parts of the object course
-  const onlyParts = course.parts.map(function (part) {
-    return part.exercises;
-  });
-  //Sum all the exercises with reduce
-  const sum = onlyParts.reduce((sum, current) => sum + current, 0);
+  //Map all exercises and add them with reduce
+  const sum = course.parts
+    .map(function (part) {
+      return part.exercises;
+    })
+    .reduce((sum, current) => sum + current, 0);
   return <p>Number of exercises {sum}</p>;
 };
 
