@@ -15,9 +15,9 @@ const App = (props) => {
 
   const handleSearchChange = (event) => {
     const newSearch = event.target.value;
-    const allNames = persons.map((person) => person.name);
+    const allNames = persons.map((person) => person.name.toUpperCase());
     let pResult = document.getElementById('pExists');
-    allNames.includes(newSearch) ? (pResult.innerHTML = `${newSearch} does exist`) : (pResult.innerHTML = `${newSearch} does not exist`);
+    allNames.includes(newSearch.toUpperCase()) ? (pResult.innerHTML = `${newSearch} does exist`) : (pResult.innerHTML = `${newSearch} does not exist`);
   };
 
   const addPerson = (event) => {
@@ -26,11 +26,12 @@ const App = (props) => {
       name: newName,
       number: newNumber,
     };
-    //Map all names and allNumbers
-    const allNames = persons.map((person) => person.name);
+    //Map all names to uppercase and allNumbers
+    const allNames = persons.map((person) => person.name.toUpperCase());
+    console.log(allNames);
     const allNumbers = persons.map((person) => person.number);
     //If allNames include newName or allNumber include newNumber
-    allNames.includes(newName)
+    allNames.includes(newName.toUpperCase())
       ? alert(`${newName} already exists in the list of names of the phonebook`)
       : allNumbers.includes(newNumber)
       ? alert(`${newNumber} already exists in the list of numbers of the phonebook`)
@@ -42,12 +43,12 @@ const App = (props) => {
   return (
     <div>
       <h1>Phonebook</h1>
+      <h2>Search contact</h2>
+      <div>
+        Search name: <input onChange={handleSearchChange} />
+        <p id='pExists'>{}</p>
+      </div>
       <form onSubmit={addPerson}>
-        <h2>Search contact</h2>
-        <div>
-          Search name: <input onChange={handleSearchChange} />
-          <p id='pExists'>{}</p>
-        </div>
         <h2>Add a new contact</h2>
         <div>
           name: <input value={newName} onChange={handleNameChange} />
