@@ -5,7 +5,6 @@ const App = (props) => {
   const [newName, setNewName] = useState('');
 
   const handlePersonChange = (event) => {
-    console.log(event.target.value);
     setNewName(event.target.value);
   };
 
@@ -14,10 +13,13 @@ const App = (props) => {
     const personObject = {
       name: newName,
     };
-
-    setPersons(persons.concat(personObject));
+    //Map all names
+    const allNames = persons.map((person) => person.name);
+    //If allNames include newName
+    allNames.includes(newName) ? alert(`${newName} is already added to the phonebook`) : setPersons(persons.concat(personObject));
     setNewName('');
   };
+
   return (
     <div>
       <h2>Phonebook</h2>
