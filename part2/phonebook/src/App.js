@@ -13,6 +13,13 @@ const App = (props) => {
     setNewNumber(event.target.value);
   };
 
+  const handleSearchChange = (event) => {
+    const newSearch = event.target.value;
+    const allNames = persons.map((person) => person.name);
+    let pResult = document.getElementById('pExists');
+    allNames.includes(newSearch) ? (pResult.innerHTML = `${newSearch} does exist`) : (pResult.innerHTML = `${newSearch} does not exist`);
+  };
+
   const addPerson = (event) => {
     event.preventDefault();
     const personObject = {
@@ -34,8 +41,14 @@ const App = (props) => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
       <form onSubmit={addPerson}>
+        <h2>Search contact</h2>
+        <div>
+          Search name: <input onChange={handleSearchChange} />
+          <p id='pExists'>{}</p>
+        </div>
+        <h2>Add a new contact</h2>
         <div>
           name: <input value={newName} onChange={handleNameChange} />
         </div>
