@@ -81,7 +81,7 @@ const Contacts = ({ persons }) => {
     </div>
   );
 };
-// olá bebe
+
 const App = (props) => {
   const [persons, setPersons] = useState(props.persons);
   const [newName, setNewName] = useState('');
