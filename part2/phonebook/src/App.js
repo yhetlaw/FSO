@@ -30,9 +30,29 @@ const AddContact = (props) => {
     props.setNewNumber(event.target.value);
   };
 
+  const addPerson = (event) => {
+    event.preventDefault();
+    const personObject = {
+      name: props.newName,
+      number: props.newNumber,
+    };
+    //Map all names to uppercase and allNumbers
+    const allNames = props.persons.map((person) => person.name.toUpperCase());
+    console.log(allNames);
+    const allNumbers = props.persons.map((person) => person.number);
+    //If allNames include newName or allNumber include newNumber
+    allNames.includes(props.newName.toUpperCase())
+      ? alert(`Name ${props.newName} is taken`)
+      : allNumbers.includes(props.newNumber)
+      ? alert(`Number ${props.newNumber} is taken`)
+      : props.setPersons(props.persons.concat(personObject));
+    props.setNewName('');
+    props.setNewNumber('');
+  };
+
   return (
     <div>
-      <form onSubmit={props.onSubmit}>
+      <form onSubmit={addPerson}>
         <Title title='Add a new contact' />
         <div>
           name: <input value={props.newName} onChange={handleNameChange} />
@@ -53,31 +73,11 @@ const App = (props) => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
 
-  const addPerson = (event) => {
-    event.preventDefault();
-    const personObject = {
-      name: newName,
-      number: newNumber,
-    };
-    //Map all names to uppercase and allNumbers
-    const allNames = persons.map((person) => person.name.toUpperCase());
-    console.log(allNames);
-    const allNumbers = persons.map((person) => person.number);
-    //If allNames include newName or allNumber include newNumber
-    allNames.includes(newName.toUpperCase())
-      ? alert(`${newName} already exists in the list of names of the phonebook`)
-      : allNumbers.includes(newNumber)
-      ? alert(`${newNumber} already exists in the list of numbers of the phonebook`)
-      : setPersons(persons.concat(personObject));
-    setNewName('');
-    setNewNumber('');
-  };
-
   return (
     <div>
       <Title title='Phonebook' />
       <Search persons={persons} />
-      <AddContact onSubmit={addPerson} newName={newName} newNumber={newNumber} setNewName={setNewName} setNewNumber={setNewNumber} />
+      <AddContact persons={persons} newName={newName} newNumber={newNumber} setNewName={setNewName} setNewNumber={setNewNumber} setPersons={setPersons} />
       <Title title='Contacts' />
       <ul>
         {persons.map((person) => (
