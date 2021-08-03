@@ -1,24 +1,57 @@
 import React, { useState } from 'react';
 
-const App = (props) => {
-  const [persons, setPersons] = useState(props.persons);
-  const [newName, setNewName] = useState('');
-  const [newNumber, setNewNumber] = useState('');
+const Title = ({ title }) => {
+  return <h1>{title}</h1>;
+};
 
-  const handleNameChange = (event) => {
-    setNewName(event.target.value);
-  };
-
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value);
-  };
-
+const Search = ({ persons }) => {
   const handleSearchChange = (event) => {
     const newSearch = event.target.value;
     const allNames = persons.map((person) => person.name.toUpperCase());
     let pResult = document.getElementById('pExists');
     allNames.includes(newSearch.toUpperCase()) ? (pResult.innerHTML = `${newSearch} does exist`) : (pResult.innerHTML = `${newSearch} does not exist`);
   };
+
+  return (
+    <div>
+      <Title title='Search contact' />
+      Search name: <input onChange={handleSearchChange} />
+      <p id='pExists'>{}</p>
+    </div>
+  );
+};
+
+const AddContact = (props) => {
+  const handleNameChange = (event) => {
+    props.setNewName(event.target.value);
+  };
+
+  const handleNumberChange = (event) => {
+    props.setNewNumber(event.target.value);
+  };
+
+  return (
+    <div>
+      <form onSubmit={props.onSubmit}>
+        <Title title='Add a new contact' />
+        <div>
+          name: <input value={props.newName} onChange={handleNameChange} />
+        </div>
+        <div>
+          number: <input value={props.newNumber} onChange={handleNumberChange} />
+        </div>
+        <div>
+          <button type='submit'>add</button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+const App = (props) => {
+  const [persons, setPersons] = useState(props.persons);
+  const [newName, setNewName] = useState('');
+  const [newNumber, setNewNumber] = useState('');
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -42,25 +75,10 @@ const App = (props) => {
 
   return (
     <div>
-      <h1>Phonebook</h1>
-      <h2>Search contact</h2>
-      <div>
-        Search name: <input onChange={handleSearchChange} />
-        <p id='pExists'>{}</p>
-      </div>
-      <form onSubmit={addPerson}>
-        <h2>Add a new contact</h2>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type='submit'>add</button>
-        </div>
-      </form>
-      <h2>Contacts</h2>
+      <Title title='Phonebook' />
+      <Search persons={persons} />
+      <AddContact onSubmit={addPerson} newName={newName} newNumber={newNumber} setNewName={setNewName} setNewNumber={setNewNumber} />
+      <Title title='Contacts' />
       <ul>
         {persons.map((person) => (
           <p key={person.name}>
