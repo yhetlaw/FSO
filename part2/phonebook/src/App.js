@@ -9,7 +9,7 @@ const Search = ({ persons }) => {
     const newSearch = event.target.value;
     const allNames = persons.map((person) => person.name.toUpperCase());
     let pResult = document.getElementById('pExists');
-    allNames.includes(newSearch.toUpperCase()) ? (pResult.innerHTML = `${newSearch} does exist`) : (pResult.innerHTML = `${newSearch} does not exist`);
+    allNames.includes(newSearch.toUpperCase()) ? (pResult.innerHTML = `The name ${newSearch} exists`) : (pResult.innerHTML = `The name ${newSearch} does not exist`);
   };
 
   return (
@@ -68,6 +68,20 @@ const AddContact = (props) => {
   );
 };
 
+const Contacts = ({ persons }) => {
+  return (
+    <div>
+      <ul>
+        {persons.map((person) => (
+          <p key={person.name}>
+            {person.name} {person.number}
+          </p>
+        ))}
+      </ul>
+    </div>
+  );
+};
+// olá bebe
 const App = (props) => {
   const [persons, setPersons] = useState(props.persons);
   const [newName, setNewName] = useState('');
@@ -79,13 +93,7 @@ const App = (props) => {
       <Search persons={persons} />
       <AddContact persons={persons} newName={newName} newNumber={newNumber} setNewName={setNewName} setNewNumber={setNewNumber} setPersons={setPersons} />
       <Title title='Contacts' />
-      <ul>
-        {persons.map((person) => (
-          <p key={person.name}>
-            {person.name} {person.number}
-          </p>
-        ))}
-      </ul>
+      <Contacts persons={persons} />
     </div>
   );
 };
