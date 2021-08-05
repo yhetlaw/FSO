@@ -22,14 +22,6 @@ const Search = ({ persons }) => {
 };
 
 const AddContact = (props) => {
-  const handleNameChange = (event) => {
-    props.setNewName(event.target.value);
-  };
-
-  const handleNumberChange = (event) => {
-    props.setNewNumber(event.target.value);
-  };
-
   const addPerson = (event) => {
     event.preventDefault();
     const personObject = {
@@ -55,10 +47,10 @@ const AddContact = (props) => {
       <form onSubmit={addPerson}>
         <Title title='Add a new contact' />
         <div>
-          name: <input value={props.newName} onChange={handleNameChange} />
+          name: <input value={props.newName} onChange={props.onNameChange} />
         </div>
         <div>
-          number: <input value={props.newNumber} onChange={handleNumberChange} />
+          number: <input value={props.newNumber} onChange={props.onNumberChange} />
         </div>
         <div>
           <button type='submit'>add</button>
@@ -86,12 +78,23 @@ const App = (props) => {
   const [persons, setPersons] = useState(props.persons);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+  const handleNameChange = (event) => setNewName(event.target.value);
+  const handleNumberChange = (event) => setNewNumber(event.target.value);
 
   return (
     <div>
       <Title title='Phonebook' />
       <Search persons={persons} />
-      <AddContact persons={persons} newName={newName} newNumber={newNumber} setNewName={setNewName} setNewNumber={setNewNumber} setPersons={setPersons} />
+      <AddContact
+        onNameChange={handleNameChange}
+        onNumberChange={handleNumberChange}
+        persons={persons}
+        newName={newName}
+        newNumber={newNumber}
+        setNewName={setNewName}
+        setNewNumber={setNewNumber}
+        setPersons={setPersons}
+      />
       <Title title='Contacts' />
       <Contacts persons={persons} />
     </div>
