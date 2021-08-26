@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Search from './components/Search';
 import AddContact from './components/AddContact';
 import Contacts from './components/Contacts';
 
 const App = (props) => {
-  const [persons, setPersons] = useState(props.persons);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const handleNameChange = (event) => setNewName(event.target.value);
   const handleNumberChange = (event) => setNewNumber(event.target.value);
+
+  useEffect(() => {
+    console.log('effect');
+    axios.get('http://localhost:3001/persons').then((response) => {
+      console.log('promise fulfilled');
+      setPersons(response.data);
+    });
+  }, []);
+
+  console.log('render', persons.length, 'persons');
 
   return (
     <div>
