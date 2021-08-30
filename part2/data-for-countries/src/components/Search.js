@@ -1,22 +1,17 @@
 import React from 'react';
+import Image from './Image';
 
 const Search = ({ countries }) => {
+  const listCountries = document.getElementById('listCountries');
+  const tooMany = document.getElementById('tooMany');
+  const inputSearch = document.getElementById('inputSearch');
   const handleSearchChange = (event) => {
     const newSearch = event.target.value.toUpperCase();
-    const listCountries = document.getElementById('listCountries');
-    const tooMany = document.getElementById('tooMany');
-    const inputSearch = document.getElementById('inputSearch');
     const regex = new RegExp(newSearch);
     const allCountries = countries
       .map((country) => country.name.toUpperCase())
       .filter((country) => country.match(regex));
-    console.log(allCountries);
-
-    /* allCountries.length > 0 && allCountries.length <= 10
-      ? (listCountries.innerHTML = allCountries.map((country) => `<li>${country}</li>`).join('')) &&
-        (tooMany.innerHTML = '')
-      : (tooMany.innerHTML = 'Too many catches, specify another filter') &&
-        (listCountries.innerHTML = ''); */
+    console.log(allCountries, allCountries.length);
 
     if (inputSearch === '') {
       listCountries.innerHTML = '';
@@ -24,9 +19,11 @@ const Search = ({ countries }) => {
     } else if (allCountries.length > 0 && allCountries.length <= 10) {
       listCountries.innerHTML = allCountries.map((country) => `<li>${country}</li>`).join('');
       tooMany.innerHTML = '';
-    } else {
+    } else if (allCountries.length > 10) {
       tooMany.innerHTML = 'Too many catches, specify another filter';
       listCountries.innerHTML = '';
+    } else {
+      console.log('hmmmmmmm');
     }
   };
   return (
@@ -35,6 +32,7 @@ const Search = ({ countries }) => {
       <input id='inputSearch' onChange={handleSearchChange} />
       <ul id='listCountries'></ul>
       <p id='tooMany'></p>
+      <Image country='' />
     </div>
   );
 };

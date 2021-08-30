@@ -5,7 +5,7 @@ import Search from './components/Search';
 const App = (props) => {
   const [countries, setCountries] = useState([]);
 
-  //Render de countries from the API
+  //Render the countries from the API
   useEffect(() => {
     console.log('effect');
     axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
