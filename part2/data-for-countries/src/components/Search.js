@@ -12,7 +12,7 @@ const Search = ({ countries }) => {
       .map((country) => country.name.toUpperCase())
       .filter((country) => country.match(regex));
     console.log(allCountries, allCountries.length);
-
+    //qwe
     if (inputSearch === '') {
       listCountries.innerHTML = '';
       tooMany.innerHTML = '';
