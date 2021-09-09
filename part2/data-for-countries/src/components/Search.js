@@ -27,12 +27,7 @@ const CountriesList = ({ status, matchedCountries, handleShowInfo }) => {
     <div>
       <ul>
         {matchedCountries.map((country) => (
-          <ListItem
-            key={country.name}
-            text={country.name}
-            handleShowInfo={handleShowInfo}
-            id={country.name}
-          />
+          <ListItem key={country.name} text={country.name} handleShowInfo={handleShowInfo} id={country.name} />
         ))}
       </ul>
     </div>
@@ -43,32 +38,24 @@ const ShowInfo = ({ status, matchedCountries, id }) => {
   if (!status) {
     return null;
   }
-
   const mapedCountries = matchedCountries.map((country) => country.name);
-  console.log(id);
-  const test = mapedCountries.indexOf(id);
-  console.log(test);
+  const indexCountry = mapedCountries.indexOf(id);
   return (
     <div>
-      <h1>{matchedCountries[test].name}</h1>
+      <h1>{matchedCountries[indexCountry].name}</h1>
       <p>
-        The capital of {matchedCountries[test].name} is {matchedCountries[test].capital}
+        The capital of {matchedCountries[indexCountry].name} is {matchedCountries[indexCountry].capital}
       </p>
       <p>
-        The population of {matchedCountries[test].name} is {matchedCountries[test].population}{' '}
-        people
+        The population of {matchedCountries[indexCountry].name} is {matchedCountries[indexCountry].population} people
       </p>
       <h2>Languages</h2>
       <ul>
-        {matchedCountries[test].languages.map((language) => (
+        {matchedCountries[indexCountry].languages.map((language) => (
           <li key={language.name}>{language.name}</li>
         ))}
       </ul>
-      <img
-        src={matchedCountries[test].flag}
-        alt={matchedCountries[test].name}
-        width='170'
-        height='150'></img>
+      <img src={matchedCountries[indexCountry].flag} alt={matchedCountries[indexCountry].name} width='170' height='150'></img>
     </div>
   );
 };
@@ -92,88 +79,60 @@ const FullCountry = ({ status, matchedCountries }) => {
           <li key={language.name}>{language.name}</li>
         ))}
       </ul>
-      <img
-        src={matchedCountries[0].flag}
-        alt={matchedCountries[0].name}
-        width='170'
-        height='150'></img>
+      <img src={matchedCountries[0].flag} alt={matchedCountries[0].name} width='170' height='150'></img>
     </div>
   );
 };
 
 const Search = ({ countries }) => {
   const inputSearch = document.getElementById('inputSearch');
-
-  const [warning, setWarning] = useState(false);
-  const [countryList, setCountryList] = useState(false);
+  const [tooManyCatchesStatus, setTooManyCatchesStatus] = useState(false);
+  const [countryListStatus, setCountryListStatus] = useState(false);
   const [fullCountryStatus, setFullCountryStatus] = useState(false);
+  const [showInfoStatus, setShowInfoStatus] = useState(false);
   const [matchedCountries, setMatchedCountries] = useState([]);
   const [newSearch, setNewSearch] = useState('');
-  const [clickedCountry, setClickedCountry] = useState(false);
   const [id, setId] = useState('');
 
   const handleSearchChange = (event) => {
     const newSearch = event.target.value.toLowerCase();
     setNewSearch(newSearch);
-    const matchedCountries = countries.filter((country) =>
-      country.name.toLowerCase().match(newSearch)
-    );
+    const matchedCountries = countries.filter((country) => country.name.toLowerCase().match(newSearch));
     setMatchedCountries(matchedCountries);
 
     if (!inputSearch) {
-      setWarning(true);
+      setTooManyCatchesStatus(true);
       setFullCountryStatus(false);
-      setCountryList(false);
+      setCountryListStatus(false);
     } else if (matchedCountries.length === 1) {
-      setWarning(false);
+      setTooManyCatchesStatus(false);
       setFullCountryStatus(true);
-      setCountryList(false);
-    } else if (
-      matchedCountries.length > 0 &&
-      matchedCountries.length <= 10 &&
-      matchedCountries.length !== 1
-    ) {
-      setWarning(false);
+      setCountryListStatus(false);
+    } else if (matchedCountries.length > 0 && matchedCountries.length <= 10 && matchedCountries.length !== 1) {
+      setTooManyCatchesStatus(false);
       setFullCountryStatus(false);
-      setCountryList(true);
-      setClickedCountry(false);
+      setCountryListStatus(true);
+      setShowInfoStatus(false);
     } else {
-      setWarning(true);
+      setTooManyCatchesStatus(true);
       setFullCountryStatus(false);
-      setCountryList(false);
+      setCountryListStatus(false);
     }
   };
 
   const handleShowInfo = (event) => {
-    console.log('the button was clicked');
-    const id = event.target.getAttribute('data-id');
-    setId(id);
-
-    if (!clickedCountry) {
-      setClickedCountry(true);
-    } else {
-      setClickedCountry(false);
-    }
+    setId(event.target.getAttribute('data-id'));
+    !showInfoStatus ? setShowInfoStatus(true) : setShowInfoStatus(false);
   };
-
-  console.log(matchedCountries);
 
   return (
     <div>
       Search for countries:
       <input id='inputSearch' onChange={handleSearchChange} />
-      <TooManyCatches status={warning} />
-      <CountriesList
-        status={countryList}
-        matchedCountries={matchedCountries}
-        handleShowInfo={handleShowInfo}
-      />
-      <FullCountry
-        status={fullCountryStatus}
-        matchedCountries={matchedCountries}
-        newSearch={newSearch}
-      />
-      <ShowInfo status={clickedCountry} matchedCountries={matchedCountries} id={id} />
+      <TooManyCatches status={tooManyCatchesStatus} />
+      <CountriesList status={countryListStatus} matchedCountries={matchedCountries} handleShowInfo={handleShowInfo} />
+      <FullCountry status={fullCountryStatus} matchedCountries={matchedCountries} newSearch={newSearch} />
+      <ShowInfo status={showInfoStatus} matchedCountries={matchedCountries} id={id} />
     </div>
   );
 };
