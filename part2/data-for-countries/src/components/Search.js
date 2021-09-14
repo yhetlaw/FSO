@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
-const TooManyCatches = (props) => {
-  if (!props.status) {
+const TooManyCatches = ({ status }) => {
+  if (!status) {
     return null;
   }
   return <p>Too many catches, specify another filter!</p>;
@@ -11,7 +11,7 @@ const TooManyCatches = (props) => {
 const ListItem = ({ handleShowInfo, text, id }) => {
   return (
     <li>
-      {text}
+      {text}{' '}
       <button data-id={id} onClick={handleShowInfo}>
         Show info
       </button>
@@ -39,12 +39,11 @@ const CountriesList = ({ status, matchedCountries, handleShowInfo }) => {
   );
 };
 
-const ShowInfo = ({ status, matchedCountries, id, weather }) => {
+const ShowInfo = ({ status, matchedCountries, weather, indexCountry, setCapital }) => {
   if (!status) {
     return null;
   }
-  const mapedCountries = matchedCountries.map((country) => country.name);
-  const indexCountry = mapedCountries.indexOf(id);
+  setCapital(matchedCountries[indexCountry].capital);
   return (
     <div>
       <h1>{matchedCountries[indexCountry].name}</h1>
@@ -67,7 +66,7 @@ const ShowInfo = ({ status, matchedCountries, id, weather }) => {
         alt={matchedCountries[indexCountry].name}
         width='170'
         height='150'></img>
-      <h2>Weather in {matchedCountries[0].capital}</h2>
+      <h2>Weather in {matchedCountries[indexCountry].capital}</h2>
       <p>
         <b>temperature:</b> {weather.current.temperature} Celsius
       </p>
@@ -83,14 +82,10 @@ const ShowInfo = ({ status, matchedCountries, id, weather }) => {
   );
 };
 
-const FullCountry = ({ status, matchedCountries, weather, capital, setCapital }) => {
+const FullCountry = ({ status, matchedCountries, weather }) => {
   if (!status) {
     return null;
   }
-
-  console.log('the capital in Search is', capital);
-  console.log(weather);
-
   return (
     <div>
       <h1>{matchedCountries[0].name}</h1>
@@ -136,6 +131,9 @@ const Search = ({ countries, weather, setCapital, capital }) => {
   const [matchedCountries, setMatchedCountries] = useState([]);
   const [newSearch, setNewSearch] = useState('');
   const [id, setId] = useState('');
+
+  const mapedCountries = matchedCountries.map((country) => country.name);
+  const indexCountry = mapedCountries.indexOf(id);
 
   const handleSearchChange = (event) => {
     const newSearch = event.target.value.toLowerCase();
@@ -190,14 +188,14 @@ const Search = ({ countries, weather, setCapital, capital }) => {
         matchedCountries={matchedCountries}
         newSearch={newSearch}
         weather={weather}
-        setCapital={setCapital}
-        capital={capital}
       />
       <ShowInfo
         status={showInfoStatus}
         matchedCountries={matchedCountries}
         id={id}
         weather={weather}
+        indexCountry={indexCountry}
+        setCapital={setCapital}
       />
     </div>
   );

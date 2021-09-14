@@ -16,12 +16,11 @@ const App = () => {
   const [weather, setWeather] = useState([]);
   const [capital, setCapital] = useState('');
   console.log('The capital in App.js is', capital);
-  const api_key = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
     console.log('effect');
     if (!capital) setCapital('Lisbon');
-
+    const api_key = process.env.REACT_APP_API_KEY;
     axios
       .get(`http://api.weatherstack.com/current?access_key=${api_key}&query=${capital}`)
       .then((response) => {
