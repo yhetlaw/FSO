@@ -142,7 +142,6 @@ const Search = ({ countries, weather, setCapital, capital }) => {
       country.name.toLowerCase().match(newSearch)
     );
     setMatchedCountries(matchedCountries);
-
     if (!inputSearch) {
       setTooManyCatchesStatus(true);
       setFullCountryStatus(false);
