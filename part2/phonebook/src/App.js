@@ -3,6 +3,7 @@ import axios from 'axios';
 import Search from './components/Search';
 import AddContact from './components/AddContact';
 import Contacts from './components/Contacts';
+import contactService from './services/contacts';
 
 const App = (props) => {
   const [persons, setPersons] = useState([]);
@@ -12,8 +13,7 @@ const App = (props) => {
   const handleNumberChange = (event) => setNewNumber(event.target.value);
 
   useEffect(() => {
-    console.log('effect');
-    axios.get('http://localhost:3001/persons').then((response) => {
+    contactService.getAll().then((response) => {
       console.log('promise fulfilled');
       setPersons(response.data);
     });

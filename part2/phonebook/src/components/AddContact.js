@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import contactService from '../services/contacts';
 
 const AddContact = (props) => {
   const addPerson = (event) => {
@@ -18,12 +19,11 @@ const AddContact = (props) => {
       ? alert(`Name ${props.newName} is taken`)
       : allNumbers.includes(props.newNumber)
       ? alert(`Number ${props.newNumber} is taken`)
-      : axios.post('http://localhost:3001/persons', personObject).then((response) => {
-          console.log(response);
+      : contactService.create(personObject).then((response) => {
           props.setPersons(props.persons.concat(response.data));
+          props.setNewName('');
+          props.setNewNumber('');
         });
-    props.setNewName('');
-    props.setNewNumber('');
   };
 
   return (
