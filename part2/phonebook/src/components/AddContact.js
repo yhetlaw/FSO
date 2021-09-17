@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 const AddContact = (props) => {
   const addPerson = (event) => {
@@ -7,6 +8,7 @@ const AddContact = (props) => {
       name: props.newName,
       number: props.newNumber,
     };
+
     //Map all names to uppercase and allNumbers
     const allNames = props.persons.map((person) => person.name.toUpperCase());
     console.log(allNames);
@@ -16,7 +18,10 @@ const AddContact = (props) => {
       ? alert(`Name ${props.newName} is taken`)
       : allNumbers.includes(props.newNumber)
       ? alert(`Number ${props.newNumber} is taken`)
-      : props.setPersons(props.persons.concat(personObject));
+      : axios.post('http://localhost:3001/persons', personObject).then((response) => {
+          console.log(response);
+          props.setPersons(props.persons.concat(response.data));
+        });
     props.setNewName('');
     props.setNewNumber('');
   };
