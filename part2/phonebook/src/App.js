@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Search from './components/Search';
 import AddContact from './components/AddContact';
 import Contacts from './components/Contacts';
@@ -13,9 +12,9 @@ const App = (props) => {
   const handleNumberChange = (event) => setNewNumber(event.target.value);
 
   useEffect(() => {
-    contactService.getAll().then((response) => {
+    contactService.getAll().then((initialPersons) => {
       console.log('promise fulfilled');
-      setPersons(response.data);
+      setPersons(initialPersons);
     });
   }, []);
 
@@ -37,7 +36,7 @@ const App = (props) => {
         setPersons={setPersons}
       />
       <h1>Contacts</h1>
-      <Contacts persons={persons} />
+      <Contacts persons={persons} setPersons={setPersons} />
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import contactService from '../services/contacts';
 
 const AddContact = (props) => {
@@ -19,8 +18,8 @@ const AddContact = (props) => {
       ? alert(`Name ${props.newName} is taken`)
       : allNumbers.includes(props.newNumber)
       ? alert(`Number ${props.newNumber} is taken`)
-      : contactService.create(personObject).then((response) => {
-          props.setPersons(props.persons.concat(response.data));
+      : contactService.create(personObject).then((returnedPerson) => {
+          props.setPersons(props.persons.concat(returnedPerson));
           props.setNewName('');
           props.setNewNumber('');
         });
