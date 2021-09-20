@@ -12,7 +12,7 @@ const ListItem = ({ handleButtonDelete, text, id, number }) => {
   );
 };
 
-const Contacts = ({ persons, setPersons }) => {
+const Contacts = ({ persons, setPersons, setLength }) => {
   const handleButtonDelete = (event) => {
     const id = event.target.getAttribute('data-id');
     console.log(id);
@@ -22,6 +22,7 @@ const Contacts = ({ persons, setPersons }) => {
         .then((deletedPerson) => {
           setPersons(persons.filter((person) => person.id !== id));
           console.log('Deleted successfully', deletedPerson);
+          setLength(persons.length);
         })
         .catch((error) => {
           console.log('fail');

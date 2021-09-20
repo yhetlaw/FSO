@@ -8,6 +8,7 @@ const App = (props) => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+  const [length, setLength] = useState([]);
   const handleNameChange = (event) => setNewName(event.target.value);
   const handleNumberChange = (event) => setNewNumber(event.target.value);
 
@@ -16,7 +17,7 @@ const App = (props) => {
       console.log('promise fulfilled');
       setPersons(initialPersons);
     });
-  }, []);
+  }, [length]);
 
   console.log('render', persons.length, 'persons');
 
@@ -36,7 +37,7 @@ const App = (props) => {
         setPersons={setPersons}
       />
       <h1>Contacts</h1>
-      <Contacts persons={persons} setPersons={setPersons} />
+      <Contacts persons={persons} setPersons={setPersons} setLength={setLength} />
     </div>
   );
 };
