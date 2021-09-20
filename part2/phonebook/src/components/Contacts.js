@@ -1,4 +1,5 @@
 import React from 'react';
+import contactService from '../services/contacts';
 
 const ListItem = ({ handleButtonDelete, text, id, number }) => {
   return (
@@ -11,15 +12,21 @@ const ListItem = ({ handleButtonDelete, text, id, number }) => {
   );
 };
 
-const Contacts = ({ persons, setId, id }) => {
+const Contacts = ({ persons, setPersons }) => {
   const handleButtonDelete = (event) => {
-    setId(event.target.getAttribute('data-id'));
+    const id = event.target.getAttribute('data-id');
     console.log(id);
-    /* if (window.confirm(`Delete ${persons[id].name}?`)) {
-      contactService.deletePerson(id).then((deletedPerson) => {
-        setPersons(persons.filter((person) => person.id !== deletedPerson.newId));
-      });
-    } */
+    if (window.confirm(`Are you sure you want to delete?`)) {
+      contactService
+        .deletePerson(id)
+        .then((deletedPerson) => {
+          setPersons(persons.filter((person) => person.id !== id));
+          console.log('Deleted successfully', deletedPerson);
+        })
+        .catch((error) => {
+          console.log('fail');
+        });
+    }
   };
 
   return (
@@ -27,8 +34,8 @@ const Contacts = ({ persons, setId, id }) => {
       <ul>
         {persons.map((person) => (
           <ListItem
-            key={person.name}
-            id={persons.id}
+            key={person.id}
+            id={person.id}
             text={person.name}
             number={person.number}
             handleButtonDelete={handleButtonDelete}
