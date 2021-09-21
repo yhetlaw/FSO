@@ -35,6 +35,8 @@ const App = (props) => {
         setNewName={setNewName}
         setNewNumber={setNewNumber}
         setPersons={setPersons}
+        setLength={setLength}
+        length={length}
       />
       <h1>Contacts</h1>
       <Contacts persons={persons} setPersons={setPersons} setLength={setLength} />

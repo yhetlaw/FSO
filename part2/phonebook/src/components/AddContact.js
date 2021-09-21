@@ -1,27 +1,49 @@
-import React from 'react';
 import contactService from '../services/contacts';
 
-const AddContact = (props) => {
+const AddContact = ({
+  onNameChange,
+  onNumberChange,
+  persons,
+  newName,
+  newNumber,
+  setNewName,
+  setNewNumber,
+  setPersons,
+  setLength,
+  length,
+}) => {
   const addPerson = (event) => {
     event.preventDefault();
     const personObject = {
-      name: props.newName,
-      number: props.newNumber,
+      name: newName,
+      number: newNumber,
     };
 
+    //const idOfNewName = persons.filter((person) => person.name === newName)[0].id)
+
     //Map all names to uppercase and allNumbers
-    const allNames = props.persons.map((person) => person.name.toUpperCase());
+    const allNames = persons.map((person) => person.name.toUpperCase());
     console.log(allNames);
-    const allNumbers = props.persons.map((person) => person.number);
+    const allNumbers = persons.map((person) => person.number);
     //If allNames include newName or allNumber include newNumber
-    allNames.includes(props.newName.toUpperCase())
-      ? alert(`Name ${props.newName} is taken`)
-      : allNumbers.includes(props.newNumber)
-      ? alert(`Number ${props.newNumber} is taken`)
+    allNames.includes(newName.toUpperCase())
+      ? window.confirm(
+          `The name ${newName} is already added to the phonebook, replace old number with the new one?`
+        )
+        ? /* contactService.update(idOfNewName, personObject).then((returnedPerson) => {
+            setPersons(persons.splice(idOfNewName - 1, 1, personObject));
+            setNewName('');
+            setNewNumber('');
+            setLength(length + 1 - 1);
+          }) */
+          console.log('replace')
+        : console.log('dont replace')
+      : allNumbers.includes(newNumber)
+      ? alert(`Number ${newNumber} is taken`)
       : contactService.create(personObject).then((returnedPerson) => {
-          props.setPersons(props.persons.concat(returnedPerson));
-          props.setNewName('');
-          props.setNewNumber('');
+          setPersons(persons.concat(returnedPerson));
+          setNewName('');
+          setNewNumber('');
         });
   };
 
@@ -29,10 +51,10 @@ const AddContact = (props) => {
     <div>
       <form onSubmit={addPerson}>
         <div>
-          name: <input value={props.newName} onChange={props.onNameChange} />
+          name: <input value={newName} onChange={onNameChange} />
         </div>
         <div>
-          number: <input value={props.newNumber} onChange={props.onNumberChange} />
+          number: <input value={newNumber} onChange={onNumberChange} />
         </div>
         <div>
           <button type='submit'>add</button>
