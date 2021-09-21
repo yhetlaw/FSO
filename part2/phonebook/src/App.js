@@ -4,7 +4,7 @@ import AddContact from './components/AddContact';
 import Contacts from './components/Contacts';
 import contactService from './services/contacts';
 
-const App = (props) => {
+const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');

@@ -19,25 +19,28 @@ const AddContact = ({
       number: newNumber,
     };
 
-    //const idOfNewName = persons.filter((person) => person.name === newName)[0].id)
-
     //Map all names to uppercase and allNumbers
     const allNames = persons.map((person) => person.name.toUpperCase());
-    console.log(allNames);
     const allNumbers = persons.map((person) => person.number);
     //If allNames include newName or allNumber include newNumber
     allNames.includes(newName.toUpperCase())
       ? window.confirm(
           `The name ${newName} is already added to the phonebook, replace old number with the new one?`
         )
-        ? /* contactService.update(idOfNewName, personObject).then((returnedPerson) => {
-            setPersons(persons.splice(idOfNewName - 1, 1, personObject));
-            setNewName('');
-            setNewNumber('');
-            setLength(length + 1 - 1);
-          }) */
-          console.log('replace')
-        : console.log('dont replace')
+        ? contactService
+            .update(persons.filter((person) => person.name === newName)[0].id, personObject)
+            .then((returnedPerson) => {
+              setPersons(Object.assign(persons, personObject));
+              setNewName('');
+              setNewNumber('');
+              setLength(length + 1);
+              setLength(length - 1);
+              console.log('Person has been updated');
+            })
+            .catch((error) => {
+              console.log('fail');
+            })
+        : console.log('fail')
       : allNumbers.includes(newNumber)
       ? alert(`Number ${newNumber} is taken`)
       : contactService.create(personObject).then((returnedPerson) => {
