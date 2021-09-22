@@ -11,6 +11,7 @@ const AddContact = ({
   setPersons,
   setLength,
   length,
+  setAlertMessage,
 }) => {
   const addPerson = (event) => {
     event.preventDefault();
@@ -31,6 +32,10 @@ const AddContact = ({
             .update(persons.filter((person) => person.name === newName)[0].id, personObject)
             .then((returnedPerson) => {
               setPersons(Object.assign(persons, personObject));
+              setAlertMessage(`Contact ${newName} has been updated!`);
+              setTimeout(() => {
+                setAlertMessage(null);
+              }, 3000);
               setNewName('');
               setNewNumber('');
               setLength(length + 1);
@@ -45,6 +50,10 @@ const AddContact = ({
       ? alert(`Number ${newNumber} is taken`)
       : contactService.create(personObject).then((returnedPerson) => {
           setPersons(persons.concat(returnedPerson));
+          setAlertMessage(`Contact ${newName} has been added!`);
+          setTimeout(() => {
+            setAlertMessage(null);
+          }, 3000);
           setNewName('');
           setNewNumber('');
         });

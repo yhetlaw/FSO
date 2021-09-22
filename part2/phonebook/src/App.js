@@ -3,12 +3,14 @@ import Search from './components/Search';
 import AddContact from './components/AddContact';
 import Contacts from './components/Contacts';
 import contactService from './services/contacts';
+import Notification from './components/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [length, setLength] = useState([]);
+  const [alertMessage, setAlertMessage] = useState(null);
   const handleNameChange = (event) => setNewName(event.target.value);
   const handleNumberChange = (event) => setNewNumber(event.target.value);
 
@@ -37,8 +39,10 @@ const App = () => {
         setPersons={setPersons}
         setLength={setLength}
         length={length}
+        setAlertMessage={setAlertMessage}
       />
       <h1>Contacts</h1>
+      <Notification message={alertMessage} />
       <Contacts persons={persons} setPersons={setPersons} setLength={setLength} />
     </div>
   );
