@@ -21,7 +21,7 @@ const Contacts = ({ persons, setPersons, setLength }) => {
         .deletePerson(id)
         .then((deletedPerson) => {
           setPersons(persons.filter((person) => person.id !== id));
-          console.log('Deleted successfully', deletedPerson);
+          console.log('Deleted successfully');
           setLength(persons.length);
         })
         .catch((error) => {

@@ -1,5 +1,12 @@
-.error {
+.alert {
   color: green;
+  font-size: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.error {
+  color: red;
   font-size: 20px;
   padding: 10px;
   margin-bottom: 10px;

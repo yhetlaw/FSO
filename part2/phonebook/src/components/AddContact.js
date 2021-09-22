@@ -12,6 +12,7 @@ const AddContact = ({
   setLength,
   length,
   setAlertMessage,
+  setErrorMessage,
 }) => {
   const addPerson = (event) => {
     event.preventDefault();
@@ -40,10 +41,12 @@ const AddContact = ({
               setNewNumber('');
               setLength(length + 1);
               setLength(length - 1);
-              console.log('Person has been updated');
             })
             .catch((error) => {
-              console.log('fail');
+              setErrorMessage(`Information of ${newName} has already been removed previously!`);
+              setTimeout(() => {
+                setAlertMessage(null);
+              }, 3000);
             })
         : console.log('fail')
       : allNumbers.includes(newNumber)

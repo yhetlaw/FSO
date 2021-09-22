@@ -4,6 +4,7 @@ import AddContact from './components/AddContact';
 import Contacts from './components/Contacts';
 import contactService from './services/contacts';
 import Notification from './components/Notification';
+import Error from './components/Error';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -11,6 +12,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [length, setLength] = useState([]);
   const [alertMessage, setAlertMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const handleNameChange = (event) => setNewName(event.target.value);
   const handleNumberChange = (event) => setNewNumber(event.target.value);
 
@@ -40,9 +42,11 @@ const App = () => {
         setLength={setLength}
         length={length}
         setAlertMessage={setAlertMessage}
+        setErrorMessage={setErrorMessage}
       />
       <h1>Contacts</h1>
       <Notification message={alertMessage} />
+      <Error message={errorMessage} />
       <Contacts persons={persons} setPersons={setPersons} setLength={setLength} />
     </div>
   );
