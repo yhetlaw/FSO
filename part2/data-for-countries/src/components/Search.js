@@ -46,13 +46,13 @@ const ShowInfo = ({ status, matchedCountries, weather, indexCountry, setCapital 
   setCapital(matchedCountries[indexCountry].capital);
   return (
     <div>
-      <h1>{matchedCountries[indexCountry].name}</h1>
+      <h1>{matchedCountries[indexCountry].name.common}</h1>
       <p>
-        The capital of {matchedCountries[indexCountry].name} is{' '}
-        {matchedCountries[indexCountry].capital}
+        The capital of {matchedCountries[indexCountry].name.common} is{' '}
+        {matchedCountries[indexCountry].capital[0]}
       </p>
       <p>
-        The population of {matchedCountries[indexCountry].name} is{' '}
+        The population of {matchedCountries[indexCountry].name.common} is{' '}
         {matchedCountries[indexCountry].population} people
       </p>
       <h2>Languages</h2>
@@ -63,7 +63,7 @@ const ShowInfo = ({ status, matchedCountries, weather, indexCountry, setCapital 
       </ul>
       <img
         src={matchedCountries[indexCountry].flag}
-        alt={matchedCountries[indexCountry].name}
+        alt={matchedCountries[indexCountry].name.common}
         width='170'
         height='150'></img>
       <h2>Weather in {matchedCountries[indexCountry].capital}</h2>
@@ -88,12 +88,13 @@ const FullCountry = ({ status, matchedCountries, weather }) => {
   }
   return (
     <div>
-      <h1>{matchedCountries[0].name}</h1>
+      <h1>{matchedCountries[0].name.common}</h1>
       <p>
-        The capital of {matchedCountries[0].name} is {matchedCountries[0].capital}
+        The capital of {matchedCountries[0].name.common} is {matchedCountries[0].capital[0]}
       </p>
       <p>
-        The population of {matchedCountries[0].name} is {matchedCountries[0].population} people
+        The population of {matchedCountries[0].name.common} is {matchedCountries[0].population}{' '}
+        people
       </p>
       <h2>Languages</h2>
       <ul>
@@ -103,10 +104,10 @@ const FullCountry = ({ status, matchedCountries, weather }) => {
       </ul>
       <img
         src={matchedCountries[0].flag}
-        alt={matchedCountries[0].name}
+        alt={matchedCountries[0].name.common}
         width='170'
         height='150'></img>
-      <h2>Weather in {matchedCountries[0].capital}</h2>
+      <h2>Weather in {matchedCountries[0].capital[0]}</h2>
       <p>
         <b>temperature:</b> {weather.current.temperature} Celsius
       </p>
@@ -132,14 +133,14 @@ const Search = ({ countries, weather, setCapital, capital }) => {
   const [newSearch, setNewSearch] = useState('');
   const [id, setId] = useState('');
 
-  const mapedCountries = matchedCountries.map((country) => country.name);
+  const mapedCountries = matchedCountries.map((country) => country.name.common);
   const indexCountry = mapedCountries.indexOf(id);
 
   const handleSearchChange = (event) => {
-    const newSearch = event.target.value.toLowerCase();
+    const newSearch = event.target.value.toString().toLowerCase();
     setNewSearch(newSearch);
     const matchedCountries = countries.filter((country) =>
-      country.name.toLowerCase().match(newSearch)
+      country.name.toString().toLowerCase().match(newSearch)
     );
     setMatchedCountries(matchedCountries);
     if (!inputSearch) {
