@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import Search from './components/Search';
-import AddContact from './components/AddContact';
-import Contacts from './components/Contacts';
-import contactService from './services/contacts';
-import Notification from './components/Notification';
-import Error from './components/Error';
+import React, { useState, useEffect } from 'react'
+import Search from './components/Search'
+import AddContact from './components/AddContact'
+import Contacts from './components/Contacts'
+import contactService from './services/contacts'
+import Notification from './components/Notification'
+import Error from './components/Error'
 
 const App = () => {
-  const [persons, setPersons] = useState([]);
-  const [newName, setNewName] = useState('');
-  const [newNumber, setNewNumber] = useState('');
-  const [length, setLength] = useState([]);
-  const [alertMessage, setAlertMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const handleNameChange = (event) => setNewName(event.target.value);
-  const handleNumberChange = (event) => setNewNumber(event.target.value);
+  const [persons, setPersons] = useState([])
+  const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
+  const [length, setLength] = useState([])
+  const [alertMessage, setAlertMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
+  const handleNameChange = (event) => setNewName(event.target.value)
+  const handleNumberChange = (event) => setNewNumber(event.target.value)
 
   useEffect(() => {
     contactService.getAll().then((initialPersons) => {
-      console.log('promise fulfilled');
-      setPersons(initialPersons);
-    });
-  }, [length]);
+      console.log('promise fulfilled')
+      setPersons(initialPersons)
+    })
+  }, [length])
 
-  console.log('render', persons.length, 'persons');
+  console.log('render', persons.length, 'persons')
 
   return (
     <div>
@@ -49,7 +49,7 @@ const App = () => {
       <Error message={errorMessage} />
       <Contacts persons={persons} setPersons={setPersons} setLength={setLength} />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
