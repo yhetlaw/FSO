@@ -18,7 +18,7 @@ const AddContact = ({
     event.preventDefault()
     const personObject = {
       name: newName,
-      number: Number(newNumber),
+      number: newNumber,
     }
 
     const allNames = persons.map((person) => person.name.toUpperCase())
