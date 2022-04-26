@@ -36,6 +36,7 @@ const AddBlog = ({
       })
       .catch((error) => {
         console.log('not added')
+        console.log(error.response)
       })
   }
 

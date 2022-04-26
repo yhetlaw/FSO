@@ -15,6 +15,7 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then((initialBlogs) => {
+      console.log(initialBlogs)
       console.log('promise fulfilled')
       setBlogs(initialBlogs)
     })
