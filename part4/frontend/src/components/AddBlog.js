@@ -1,4 +1,8 @@
+import blogService from '../services/bloglist'
+
 const AddBlog = ({
+  blogs,
+  setBlogs,
   newAuthor,
   newTitle,
   newUrl,
@@ -20,6 +24,19 @@ const AddBlog = ({
       url: newUrl,
       likes: newLikes,
     }
+
+    blogService
+      .create(blogObject)
+      .then((returnedBlog) => {
+        setBlogs(blogs.concat(returnedBlog))
+        setNewAuthor('')
+        setNewTitle('')
+        setNewUrl('')
+        setNewLikes()
+      })
+      .catch((error) => {
+        console.log('not added')
+      })
   }
 
   return (
@@ -33,10 +50,10 @@ const AddBlog = ({
           Title: <input value={newTitle} onChange={handleTitleChange} />
         </div>
         <div>
-          Url: <input />
+          Url: <input value={newUrl} onChange={handleUrlChange} />
         </div>
         <div>
-          Upvotes: <input />
+          Upvotes: <input value={newLikes} onChange={handleLikesChange} />
         </div>
         <div>
           <button type='submit'>add</button>
