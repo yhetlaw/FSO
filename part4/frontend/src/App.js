@@ -41,6 +41,11 @@ const App = () => {
         handleUrlChange={handleUrlChange}
         handleLikesChange={handleLikesChange}
       />
+      <ul>
+        {blogs.map((blog) => (
+          <li>{blog.title}</li>
+        ))}
+      </ul>
     </div>
   )
 }
