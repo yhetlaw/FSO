@@ -1,0 +1,14 @@
+.li-test {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: gainsboro;
+  height: auto;
+  margin: 0.8rem;
+  padding: 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  button {
+    width: 5rem;
+  }
+}

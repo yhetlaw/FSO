@@ -22,7 +22,7 @@ const AddBlog = ({
       author: newAuthor,
       title: newTitle,
       url: newUrl,
-      likes: newLikes,
+      likes: Number(newLikes),
     }
 
     blogService
@@ -33,7 +33,7 @@ const AddBlog = ({
         setNewAuthor('')
         setNewTitle('')
         setNewUrl('')
-        setNewLikes()
+        setNewLikes('')
       })
       .catch((error) => {
         console.log('not added')

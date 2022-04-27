@@ -1,0 +1,23 @@
+.li-test {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: gainsboro;
+  height: auto;
+  margin: 0.8rem;
+  padding: 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.li-test button {
+  width: 5rem;
+}
+/*# sourceMappingURL=app.css.map */
