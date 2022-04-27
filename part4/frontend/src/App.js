@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react'
+
+//Components
 import AddBlog from './components/AddBlog'
+import Blogs from './components/Blogs'
+
+//Services
 import blogService from './services/bloglist'
 
 const App = () => {
@@ -23,22 +28,6 @@ const App = () => {
 
   console.log('render', blogs.length, 'blogs')
 
-  const handleDelete = (event) => {
-    const id = event.target.getAttribute('data-id')
-    console.log(id)
-    if (window.confirm(`Are you sure you want to delete?`)) {
-      blogService
-        .deleteBlog(id)
-        .then(() => {
-          setBlogs(blogs.filter((blog) => blog.id !== id))
-          console.log('Deleted successfully')
-        })
-        .catch((error) => {
-          console.log('fail')
-        })
-    }
-  }
-
   return (
     <div>
       <AddBlog
@@ -57,19 +46,7 @@ const App = () => {
         handleUrlChange={handleUrlChange}
         handleLikesChange={handleLikesChange}
       />
-      <ul>
-        {blogs.map((blog) => (
-          <li key={blog.id} className='li-test'>
-            <div>The author is {blog.author}</div>
-            <div>The title is {blog.title}</div>
-            <div>The url is {blog.url}</div>
-            <div>{blog.likes} likes</div>
-            <button onClick={handleDelete} data-id={blog.id}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+      <Blogs blogs={blogs} setBlogs={setBlogs} />
     </div>
   )
 }
