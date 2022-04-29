@@ -26,8 +26,6 @@ const App = () => {
     })
   }, [])
 
-  console.log('render', blogs.length, 'blogs')
-
   return (
     <div>
       <AddBlog

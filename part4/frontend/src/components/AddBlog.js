@@ -28,7 +28,6 @@ const AddBlog = ({
     blogService
       .create(blogObject)
       .then((returnedBlog) => {
-        console.log('added')
         setBlogs(blogs.concat(returnedBlog))
         setNewAuthor('')
         setNewTitle('')
@@ -36,7 +35,6 @@ const AddBlog = ({
         setNewLikes('')
       })
       .catch((error) => {
-        console.log('not added')
         console.log(error.response.data)
       })
   }

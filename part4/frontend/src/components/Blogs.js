@@ -3,8 +3,7 @@ import blogService from '../services/bloglist'
 const Blogs = ({ blogs, setBlogs }) => {
   const handleDelete = (event) => {
     const id = event.target.getAttribute('data-id')
-    console.log(id)
-    if (window.confirm(`Are you sure you want to delete?`)) {
+    if (window.confirm(`Are you sure you want to delete the blog?`)) {
       blogService
         .deleteBlog(id)
         .then(() => {
@@ -12,7 +11,7 @@ const Blogs = ({ blogs, setBlogs }) => {
           console.log('Deleted successfully')
         })
         .catch((error) => {
-          console.log('fail')
+          console.log(error.response.data)
         })
     }
   }
@@ -21,9 +20,18 @@ const Blogs = ({ blogs, setBlogs }) => {
     <ul>
       {blogs.map((blog) => (
         <li key={blog.id} className='li-test'>
-          <div>The author is {blog.author}</div>
-          <div>The title is {blog.title}</div>
-          <div>The url is {blog.url}</div>
+          <div>
+            <b>Author: </b>
+            {blog.author}
+          </div>
+          <div>
+            <b>Title: </b>
+            {blog.title}
+          </div>
+          <div>
+            <b>Url: </b>
+            {blog.url}
+          </div>
           <div>{blog.likes} likes</div>
           <button onClick={handleDelete} data-id={blog.id}>
             Delete

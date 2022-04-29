@@ -15,11 +15,7 @@ blogsRouter.get('/', (request, response) => {
 blogsRouter.get('/:id', (request, response, next) => {
   Blog.findById(request.params.id)
     .then((blog) => {
-      if (blog) {
-        response.json(blog)
-      } else {
-        response.status(404).end()
-      }
+      blog ? response.json(blog) : response.status(404).end()
     })
     .catch((error) => next(error))
 })
@@ -55,7 +51,6 @@ blogsRouter.delete('/:id', (request, response, next) => {
 
 blogsRouter.put('/:id', (request, response, next) => {
   const body = request.body
-
   const blog = new Blog({
     title: body.title,
     author: body.author,
@@ -63,7 +58,7 @@ blogsRouter.put('/:id', (request, response, next) => {
     likes: body.likes,
   })
 
-  Blog.findByIdAndUpdate(request.params.id, note, { new: true })
+  Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
     .then((updatedBlog) => {
       response.json(updatedBlog)
     })
