@@ -23,7 +23,12 @@ const favoriteBlog = (blogs) => {
   }
 }
 
+const mostBlogs = (blogs) => {
+  const mostBlogsAuthor = ''
+}
+
 module.exports = {
+  mostBlogs,
   favoriteBlog,
   dummy,
   totalLikes,
